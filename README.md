@@ -12,10 +12,10 @@
 
 ## Table of Contents
 
-- [Downloading RPC](https://github.com/CapOliveiraBr/DBM-Rich-Presence#donwloading-rpc)
+- [Downloading RPC](https://github.com/CapOliveiraBr/DBM-Rich-Presence#downloading-rpc)
 - [Installing RPC](https://github.com/CapOliveiraBr/DBM-Rich-Presence#installing-rpc)
 
-### Donwloading RPC
+### Downloading RPC
 
 ...
 
