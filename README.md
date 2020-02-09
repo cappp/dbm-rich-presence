@@ -30,8 +30,8 @@ Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/D
 **3.** With the files copied, access your Steam and go to the library to where Discord Bot Maker is.<br>
 **4.** Then right-click on it in **Properties**, **LOCAL FILES** and lastly click on **BROWSE LOCAL FILES**.
 
-![](https://i.imgur.com/bSwMF7Z.png)
-![](https://i.imgur.com/ie2FWot.png)
+![](https://i.imgur.com/bSwMF7Z.png)<br>
+![](https://i.imgur.com/ie2FWot.png)<br>
 ![](https://i.imgur.com/H42Y8rP.png)
 
 **5.** You should now be in the DBM folder, just paste the files we copied earlier and replace the existing ones.
