@@ -14,6 +14,7 @@
 
 - [Downloading RPC](#downloading-rpc)
 - [Installing RPC](#installing-rpc)
+- [RPC Settings][#rpc-settings]
 
 ### Downloading RPC
 
@@ -40,5 +41,11 @@ Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/D
 
 🎉 **YAY! you just installed the RPC! If you have DBM open, close and open it again for view the changes.**
 
----
+### RPC Settings
 
+When you install the RPC, a new menu tab is added to DBM, called "**Integrations**", inside it you can go to **DBM Rich Presence** where you can see some settings.
+
+![](https://i.imgur.com/Mz1xPcz.png)
+![](https://i.imgur.com/jVgGIJ0.png)
+
+> ⭐ Did you like the project? Why don't you give it a star? :3
