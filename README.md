@@ -2,7 +2,7 @@
 
 📖 A Rich Presence of Discord that shows your DBM information.
 
-> This is just a first version, soon it will be super cool!
+> **Note:** This is just a first version, soon it will be super cool!
 
 ![](https://i.imgur.com/4IPNq8U.png)
 
