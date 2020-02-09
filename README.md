@@ -12,8 +12,8 @@
 
 ## Table of Contents
 
-- Downloading RPC
-- Installing RPC
+- [Downloading RPC](https://github.com/CapOliveiraBr/DBM-Rich-Presence#donwloading-rpc)
+- [Installing RPC](https://github.com/CapOliveiraBr/DBM-Rich-Presence#installing-rpc)
 
 ### Donwloading RPC
 
