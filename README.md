@@ -14,7 +14,7 @@
 
 - [Downloading RPC](#downloading-rpc)
 - [Installing RPC](#installing-rpc)
-- [RPC Settings][#rpc-settings]
+- [RPC Settings](#rpc-settings)
 
 ### Downloading RPC
 
