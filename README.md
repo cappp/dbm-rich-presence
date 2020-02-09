@@ -1,1 +1,1 @@
-# DBM-Rich-Presence
+# DBM Rich Presence
