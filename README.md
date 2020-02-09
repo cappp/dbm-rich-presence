@@ -17,8 +17,28 @@
 
 ### Downloading RPC
 
-...
+Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/DBM-Rich-Presence/releases).
 
 ### Installing RPC
 
-...
+**1.** With the latest release downloaded, extract the `.zip` file.<br>
+**2.** Enter the previously unzipped folder, go to ``src`` and copy all files
+
+![](https://i.imgur.com/qs54dwD.png)
+![](https://i.imgur.com/zf4oEvS.png)
+
+**3.** With the files copied, access your Steam and go to the library to where Discord Bot Maker is.<br>
+**4.** Then right-click on it in **Properties**, **LOCAL FILES** and lastly click on **BROWSE LOCAL FILES**.
+
+![](https://i.imgur.com/bSwMF7Z.png)
+![](https://i.imgur.com/ie2FWot.png)
+![](https://i.imgur.com/H42Y8rP.png)
+
+**5.** You should now be in the DBM folder, just paste the files we copied earlier and replace the existing ones.
+
+![](https://i.imgur.com/Jyk9aR3.png)
+
+🎉 **YAY! you just installed the RPC! If you have DBM open, close and open it again for the changes.**
+
+---
+
