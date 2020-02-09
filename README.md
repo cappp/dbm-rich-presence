@@ -48,4 +48,6 @@ When you install the RPC, a new menu tab is added to DBM, called "**Integrations
 ![](https://i.imgur.com/Mz1xPcz.png)
 ![](https://i.imgur.com/jVgGIJ0.png)
 
-> ⭐ Did you like the project? Why don't you give it a star? :3
+---
+
+⭐ **Did you like the project? Why don't you give it a star? :3**
