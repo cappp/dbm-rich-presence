@@ -38,7 +38,7 @@ Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/D
 
 ![](https://i.imgur.com/Jyk9aR3.png)
 
-🎉 **YAY! you just installed the RPC! If you have DBM open, close and open it again for the changes.**
+🎉 **YAY! you just installed the RPC! If you have DBM open, close and open it again for view the changes.**
 
 ---
 
