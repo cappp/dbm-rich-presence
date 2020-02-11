@@ -3,7 +3,7 @@
  /*======================================================*  
   *                                                      *
   *             # DBM Rich Presence - v1.1.0             *
-  *             Created by Cap & General Wrex           *
+  *             Created by Cap & General Wrex            *
   *  https://github.com/CapOliveiraBr/DBM-Rich-Presence  *
   *                                                      *
   *======================================================*/
