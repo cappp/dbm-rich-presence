@@ -1,8 +1,9 @@
- const version = '1.0.9';
+ const rpcVersion = '1.0.9';
+
  /*======================================================*  
   *                                                      *
   *             # DBM Rich Presence - v1.0.9             *
-  *                   Created by Cap & General Wrex      *
+  *             Created by Cap & General Wrex            *
   *  https://github.com/CapOliveiraBr/DBM-Rich-Presence  *
   *                                                      *
   *======================================================*/
@@ -14,12 +15,12 @@ let modal;
 let Menu;
 let rpc;
 
+let currentProject;
+let options;
+
 const settings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
-
-let currentProject;
-let options;
 
 function setMenu() {
   Menu = nw.Window.get().menu;
@@ -43,7 +44,7 @@ function setModal() {
   modal.classList.add('modal');
   modal.setAttribute('style', 'padding: 20px; height: 320px; border-radius: 10px; background-color: #36393e; border: 2px solid #000;');
   modal.innerHTML = `
-    <h2>DBM Rich Presence - v${version}</h2>
+    <h2>DBM Rich Presence - v${rpcVersion}</h2>
     Created by <b>Cap & General Wrex</b> - <a href="#" onclick="nw.Shell.openExternal('https://github.com/CapOliveiraBr/DBM-Rich-Presence')">Repository</a>
     <h3>Settings</h3>
     Enable RPC:<br><br>
@@ -87,10 +88,9 @@ function setRichPresence() {
     state: stateVal,
     details: 'Editing Commands',
     largeImageKey: 'dbm',
-    largeImageText: 'DBM Rich Presence v'+version,
+    largeImageText: `DBM Rich Presence v${rpcVersion}`,
     startTimestamp: Date.now()
   };
-
 
   function setActivity() {
     rpc.setActivity(options);
@@ -113,11 +113,11 @@ function stopRichPresence() {
   });
 }
 
-function getName(type, index){ 
+function getName(type, index) { 
   return require(join(currentProject, 'data', `${type.toLowerCase()}.json`))[index].name
 }
 
-function overrideFunctions(){
+function overrideFunctions() {
   
   const cache = {
     Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : `Editing Commands` , 
@@ -128,7 +128,7 @@ function overrideFunctions(){
   // when the tab is changed
   let section = "Commands";
   const shiftTabs = DBM.shiftTabs;
-  DBM.shiftTabs = function(event, sect, index) { 
+  DBM.shiftTabs = (event, sect, index) => { 
     try {
       section = sect; 
       options.details = cache[sect];
@@ -141,7 +141,7 @@ function overrideFunctions(){
 
   // when a command name is clicked
   const onCommandClick = DBM.onCommandClick;
-  DBM.onCommandClick = function(index) {  
+  DBM.onCommandClick = (index) => {  
     try {
         const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)} ` : `Editing ${section}` 
         cache['Commands'] = details;
@@ -155,7 +155,7 @@ function overrideFunctions(){
 
   // when an event name is clicked
   const eonCommandClick = DBM.eonCommandClick;
-  DBM.eonCommandClick = function(index) {  
+  DBM.eonCommandClick = (index) => {  
     try {     
       const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)} ` : `Editing ${section}` 
       cache['Events'] = details;
@@ -167,8 +167,9 @@ function overrideFunctions(){
     eonCommandClick.apply(this, arguments);
   }
 }
-setTimeout(() => overrideFunctions(), 1000);
 
 setMenu();
 setModal();
 setRichPresence();
+
+setTimeout(() => overrideFunctions(), 1000);
