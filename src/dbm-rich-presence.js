@@ -104,7 +104,7 @@ function setRichPresence() {
     }
   });
 
-  rpc.login({ clientId: '675588061140353025' }).catch(err => alert('Some error ocurred on setting the Rich Presence!\n\nError: ' + err));
+  rpc.login({ clientId: '675588061140353025' }).catch(err => alert(err));
 }
 
 function stopRichPresence() {
