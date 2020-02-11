@@ -16,6 +16,7 @@ let Menu;
 
 let rpc;
 let options;
+
 const settings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
@@ -28,7 +29,7 @@ function setMenu() {
   const dbmRichPresenceMenu = new nw.Menu();
   dbmRichPresenceMenu.append(new nw.MenuItem({
     label: 'DBM Rich Presence',
-    click: () => jQuery('#discordRichPresence').modal('show')
+    click: () => jQuery('#dbmRichPresence').modal('show')
   }))
 
   Menu.append(new nw.MenuItem({
@@ -39,7 +40,7 @@ function setMenu() {
 
 function setModal() {
   modal = document.createElement('div');
-  modal.id = 'discordRichPresence';
+  modal.id = 'dbmRichPresence';
   modal.classList.add('ui');
   modal.classList.add('modal');
   modal.setAttribute('style', 'padding: 20px; height: 320px; border-radius: 10px; background-color: #36393e; border: 2px solid #000;');
