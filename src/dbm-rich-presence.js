@@ -133,7 +133,7 @@ function overrideFunctions() {
       section = sect; 
       options.details = cache[sect];
       rpc.setActivity(options);     
-    }catch (err) {
+    }catch(err) {
       alert(err);
     }
 
@@ -148,7 +148,7 @@ function overrideFunctions() {
         cache['Commands'] = details;
         options.details = details;
         rpc.setActivity(options);
-    } catch (err) {
+    } catch(alert) {
       alert(err);
     }
 
@@ -163,8 +163,8 @@ function overrideFunctions() {
       cache['Events'] = details;
       options.details = details;
       rpc.setActivity(options);
-    } catch (err) {
-        alert(err);
+    } catch(err) {
+      alert(err);
     }
 
     eonCommandClick.apply(this, arguments);
