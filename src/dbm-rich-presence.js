@@ -13,7 +13,7 @@ const { writeFileSync } = require('fs');
 const { resolve, join } = require('path');
 
 let modal;
-let Menu;
+let menu;
 
 let rpc;
 let options;
@@ -25,7 +25,7 @@ let enableCmdNames;
 let currentProject;
 
 function setMenu() {
-  Menu = Window.get().menu;
+  menu = Window.get().menu;
 
   const dbmRichPresenceMenu = new Menu();
   dbmRichPresenceMenu.append(new MenuItem({
@@ -33,7 +33,7 @@ function setMenu() {
     click: () => jQuery('#dbmRichPresence').modal('show')
   }))
 
-  Menu.append(new MenuItem({
+  menu.append(new MenuItem({
     label: 'Integrations',
     submenu: dbmRichPresenceMenu
   }));
