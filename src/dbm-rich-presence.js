@@ -60,18 +60,18 @@ function setModal() {
       <option value="false">False</option>
     </select>
   `;
-  
+
   document.body.appendChild(modal);
-  
+
   document.getElementById('enableRPC').value = settings.enableRPC;
   document.getElementById('enableCmdNames').value = settings.enableCmdNames;
-  
+
   setInterval(() => {
     enableRPC = document.getElementById('enableRPC').value === 'true' ? true : false;
     enableCmdNames = document.getElementById('enableCmdNames').value === 'true' ? true : false;
-  
+
     writeFileSync(resolve('rpcSettings.json'), JSON.stringify({ enableRPC, enableCmdNames }));
-    
+
     if (enableRPC) {
       if (!rpc) setRichPresence();
     } else stopRichPresence();
@@ -88,8 +88,8 @@ function setRichPresence() {
   const stateVal = `Project: ${currentProject.replace(/\\/g, '/').split('/').slice(-1).toString()}`;
 
   options = {
-    state: stateVal,
     details: 'Editing Commands',
+    state: stateVal,
     largeImageKey: 'dbm',
     largeImageText: `DBM Rich Presence v${rpcVersion}`,
     startTimestamp: Date.now()
