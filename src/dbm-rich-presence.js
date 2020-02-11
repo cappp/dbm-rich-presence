@@ -1,37 +1,37 @@
- const rpcVersion = '1.0.9';
+ const rpcVersion = '1.1.0';
 
  /*======================================================*  
   *                                                      *
-  *             # DBM Rich Presence - v1.0.9             *
-  *             Created by Cap & General Wrex            *
+  *             # DBM Rich Presence - v1.1.0             *
+  *             Created by Cap & General Wrex           *
   *  https://github.com/CapOliveiraBr/DBM-Rich-Presence  *
   *                                                      *
   *======================================================*/
 
+const { Window, Menu, MenuItem } = nw;
 const { writeFileSync } = require('fs');
 const { resolve, join } = require('path');
 
 let modal;
-let Menu;
+let menu;
+
 let rpc;
+let rpcOptions;
 
-let currentProject;
-let options;
-
-const settings = require(resolve('rpcSettings.json'));
+const rpcSettings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
 
 function setMenu() {
-  Menu = nw.Window.get().menu;
+  menu = Window.get().menu;
 
-  const dbmRichPresenceMenu = new nw.Menu();
-  dbmRichPresenceMenu.append(new nw.MenuItem({
+  const dbmRichPresenceMenu = new Menu();
+  dbmRichPresenceMenu.append(new MenuItem({
     label: 'DBM Rich Presence',
-    click: () => jQuery('#discordRichPresence').modal('show')
+    click: () => jQuery('#dbmRichPresence').modal('show')
   }))
 
-  Menu.append(new nw.MenuItem({
+  menu.append(new MenuItem({
     label: 'Integrations',
     submenu: dbmRichPresenceMenu
   }));
@@ -39,7 +39,7 @@ function setMenu() {
 
 function setModal() {
   modal = document.createElement('div');
-  modal.id = 'discordRichPresence';
+  modal.id = 'dbmRichPresence';
   modal.classList.add('ui');
   modal.classList.add('modal');
   modal.setAttribute('style', 'padding: 20px; height: 320px; border-radius: 10px; background-color: #36393e; border: 2px solid #000;');
@@ -60,8 +60,9 @@ function setModal() {
   `;
 
   document.body.appendChild(modal);
-  document.getElementById('enableRPC').value = settings.enableRPC;
-  document.getElementById('enableCmdNames').value = settings.enableCmdNames;
+
+  document.getElementById('enableRPC').value = rpcSettings.enableRPC;
+  document.getElementById('enableCmdNames').value = rpcSettings.enableCmdNames;
 
   setInterval(() => {
     enableRPC = document.getElementById('enableRPC').value === 'true' ? true : false;
@@ -80,28 +81,25 @@ function setRichPresence() {
 
   const { Client } = require('discord-rpc');
   rpc = new Client({ transport: 'ipc' });
-  
-  currentProject = require(resolve('settings.json'))['current-project'];
-  const stateVal = `Project: ${currentProject.replace(/\\/g, '/').split('/').slice(-1).toString()}`;
+  const stateVal = `Project: ${require(resolve('settings.json'))['current-project'].replace(/\\/g, '/').split('/').slice(-1).toString()}`;
 
-  options = {
-    state: stateVal,
+  rpcOptions = {
     details: 'Editing Commands',
+    state: stateVal,
     largeImageKey: 'dbm',
     largeImageText: `DBM Rich Presence v${rpcVersion}`,
     startTimestamp: Date.now()
   };
 
-  function setActivity() {
-    rpc.setActivity(options);
-  }
-
   rpc.on('ready', () => {
-    setActivity();
-    setTimeout(() => setActivity(), 1000);
+    try {
+      rpc.setActivity(rpcOptions);
+    } catch(err) {
+      alert(err);
+    }
   });
 
-  rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on setting the Rich Presence!'));
+  rpc.login({ clientId: '675588061140353025' }).catch(() => alert(err));
 }
 
 function stopRichPresence() {
@@ -113,56 +111,58 @@ function stopRichPresence() {
   });
 }
 
-function getName(type, index) { 
-  return require(join(currentProject, 'data', `${type.toLowerCase()}.json`))[index].name
-}
+function getName(type, index) {
+  switch (type) {
+    case 'Commands': 
+      return DBM.$cmds[index] && DBM.$cmds[index].name ? DBM.$cmds[index].name : false;
+    case 'Events':
+      return DBM.$evts[index] && DBM.$evts[index].name ? DBM.$evts[index].name : false;
+  }
+} 
 
 function overrideFunctions() {
-  
   const cache = {
-    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : 'Editing Commands' , 
-    Events:   enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events' , 
+    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)}` : `Editing Commands`, 
+    Events: enableCmdNames ? `Event ${getName('Events', 1)}` : `Editing Events`, 
     Settings: 'Editing Bot Settings'
-  };
+  }; 
   
-  // when the tab is changed
   let section = 'Commands';
+
   const shiftTabs = DBM.shiftTabs;
-  DBM.shiftTabs = (event, sect, index) => { 
+  DBM.shiftTabs = function(event, sect, index) { 
     try {
       section = sect; 
-      options.details = cache[sect];
-      rpc.setActivity(options);     
-    }catch(err) {
+      rpcOptions.details = cache[sect];
+      rpc.setActivity(rpcOptions);     
+    } catch(err) {
       alert(err);
     }
 
     shiftTabs.apply(this, arguments);
   } 
 
-  // when a command name is clicked
   const onCommandClick = DBM.onCommandClick;
-  DBM.onCommandClick = (index) => {  
+  DBM.onCommandClick = function(index) {  
     try {
-        const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
-        cache['Commands'] = details;
-        options.details = details;
-        rpc.setActivity(options);
-    } catch(alert) {
+      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index) || `New ${section.slice(0, -1)}`}` : `Editing ${section}`;        
+      cache['Commands'] = details; 
+      rpcOptions.details = details;
+      rpc.setActivity(rpcOptions);
+    } catch(err) {
       alert(err);
     }
-
+    
     onCommandClick.apply(this, arguments);
   }
 
-  // when an event name is clicked
   const eonCommandClick = DBM.eonCommandClick;
-  DBM.eonCommandClick = (index) => {  
+  DBM.eonCommandClick = function(index) {  
     try {     
-      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
+      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index) || `New ${section.slice(0, -1)}`}` : `Editing ${section}`;     
       cache['Events'] = details;
-      options.details = details;
-      rpc.setActivity(options);
+      rpcOptions.details = details;
+      rpc.setActivity(rpcOptions);
     } catch(err) {
       alert(err);
     }
@@ -173,6 +173,6 @@ function overrideFunctions() {
 
 setMenu();
 setModal();
-setRichPresence();
 
+setRichPresence();
 setTimeout(() => overrideFunctions(), 1000);
