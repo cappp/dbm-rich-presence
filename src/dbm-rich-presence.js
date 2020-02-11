@@ -62,6 +62,7 @@ function setModal() {
   `;
 
   document.body.appendChild(modal);
+
   document.getElementById('enableRPC').value = settings.enableRPC;
   document.getElementById('enableCmdNames').value = settings.enableCmdNames;
 
