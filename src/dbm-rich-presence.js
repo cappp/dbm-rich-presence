@@ -13,14 +13,14 @@ const { resolve, join } = require('path');
 
 let modal;
 let Menu;
+
 let rpc;
-
-let currentProject;
 let options;
-
 const settings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
+
+let currentProject;
 
 function setMenu() {
   Menu = nw.Window.get().menu;
@@ -92,13 +92,9 @@ function setRichPresence() {
     startTimestamp: Date.now()
   };
 
-  function setActivity() {
-    rpc.setActivity(options);
-  }
-
   rpc.on('ready', () => {
-    setActivity();
-    setTimeout(() => setActivity(), 1000);
+    rpc.setActivity(options);
+    setTimeout(() => rpc.setActivity(options), 1000);
   });
 
   rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on setting the Rich Presence!'));
@@ -118,14 +114,12 @@ function getName(type, index) {
 }
 
 function overrideFunctions() {
-  
   const cache = {
-    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : 'Editing Commands' , 
-    Events:   enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events' , 
+    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : 'Editing Commands', 
+    Events: enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events', 
     Settings: 'Editing Bot Settings'
   };
   
-  // when the tab is changed
   let section = 'Commands';
   const shiftTabs = DBM.shiftTabs;
   DBM.shiftTabs = (event, sect, index) => { 
@@ -133,33 +127,31 @@ function overrideFunctions() {
       section = sect; 
       options.details = cache[sect];
       rpc.setActivity(options);     
-    }catch(err) {
+    } catch(err) {
       alert(err);
     }
 
     shiftTabs.apply(this, arguments);
   } 
 
-  // when a command name is clicked
   const onCommandClick = DBM.onCommandClick;
   DBM.onCommandClick = (index) => {  
     try {
-        const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
-        cache['Commands'] = details;
-        options.details = details;
-        rpc.setActivity(options);
-    } catch(alert) {
+      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}`; 
+      cache['Commands'] = details;
+      options.details = details;
+      rpc.setActivity(options);
+    } catch(err) {
       alert(err);
     }
 
     onCommandClick.apply(this, arguments);
   }
 
-  // when an event name is clicked
   const eonCommandClick = DBM.eonCommandClick;
   DBM.eonCommandClick = (index) => {  
     try {     
-      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
+      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}`; 
       cache['Events'] = details;
       options.details = details;
       rpc.setActivity(options);
@@ -173,6 +165,6 @@ function overrideFunctions() {
 
 setMenu();
 setModal();
-setRichPresence();
 
+setRichPresence();
 setTimeout(() => overrideFunctions(), 1000);
