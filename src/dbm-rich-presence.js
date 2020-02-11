@@ -1,14 +1,14 @@
- const rpcVersion = '1.0.9';
+const rpcVersion = '1.1.0';
 
- /*======================================================*  
-  *                                                      *
-  *             # DBM Rich Presence - v1.0.9             *
-  *             Created by Cap & General Wrex            *
-  *  https://github.com/CapOliveiraBr/DBM-Rich-Presence  *
-  *                                                      *
-  *======================================================*/
-
-const { Window, Menu, MenuItem, Shell } = nw;
+/*======================================================*  
+ *                                                      *
+ *             # DBM Rich Presence - v1.1.0             *
+ *             Created by Cap & General Wrex            *
+ *  https://github.com/CapOliveiraBr/DBM-Rich-Presence  *
+ *                                                      *
+ *======================================================*/
+ 
+const { Window, Menu, MenuItem } = nw;
 const { writeFileSync } = require('fs');
 const { resolve, join } = require('path');
 
@@ -31,7 +31,7 @@ function setMenu() {
   dbmRichPresenceMenu.append(new MenuItem({
     label: 'DBM Rich Presence',
     click: () => jQuery('#dbmRichPresence').modal('show')
-  }))
+  }));
 
   menu.append(new MenuItem({
     label: 'Integrations',
@@ -47,7 +47,7 @@ function setModal() {
   modal.setAttribute('style', 'padding: 20px; height: 320px; border-radius: 10px; background-color: #36393e; border: 2px solid #000;');
   modal.innerHTML = `
     <h2>DBM Rich Presence - v${rpcVersion}</h2>
-    Created by <b>Cap & General Wrex</b> - <a href="#" onclick="Shell.openExternal('https://github.com/CapOliveiraBr/DBM-Rich-Presence')">Repository</a>
+    Created by <b>Cap & General Wrex</b> - <a href="#" onclick="nw.Shell.openExternal('https://github.com/CapOliveiraBr/DBM-Rich-Presence')">Repository</a>
     <h3>Settings</h3>
     Enable RPC:<br><br>
     <select id="enableRPC" class="round">
@@ -60,16 +60,16 @@ function setModal() {
       <option value="false">False</option>
     </select>
   `;
-
+  
   document.body.appendChild(modal);
-
+  
   document.getElementById('enableRPC').value = settings.enableRPC;
   document.getElementById('enableCmdNames').value = settings.enableCmdNames;
-
+  
   setInterval(() => {
     enableRPC = document.getElementById('enableRPC').value === 'true' ? true : false;
     enableCmdNames = document.getElementById('enableCmdNames').value === 'true' ? true : false;
-
+  
     writeFileSync(resolve('rpcSettings.json'), JSON.stringify({ enableRPC, enableCmdNames }));
     
     if (enableRPC) {
@@ -96,8 +96,12 @@ function setRichPresence() {
   };
 
   rpc.on('ready', () => {
-    rpc.setActivity(options);
-    setTimeout(() => rpc.setActivity(options), 1000);
+    try {
+      rpc.setActivity(options);
+      setTimeout(() => rpc.setActivity(options), 1000);
+    } catch(err) {
+      alert(err);
+    }
   });
 
   rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on setting the Rich Presence!'));
@@ -105,7 +109,7 @@ function setRichPresence() {
 
 function stopRichPresence() {
   if (!rpc) return;
-
+  
   rpc.clearActivity().then(() => {
     rpc.destroy();
     rpc = null;
@@ -122,8 +126,9 @@ function overrideFunctions() {
     Events: enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events', 
     Settings: 'Editing Bot Settings'
   };
-  
+
   let section = 'Commands';
+
   const shiftTabs = DBM.shiftTabs;
   DBM.shiftTabs = (event, sect, index) => { 
     try {
@@ -133,7 +138,7 @@ function overrideFunctions() {
     } catch(err) {
       alert(err);
     }
-
+  
     shiftTabs.apply(this, arguments);
   } 
 
@@ -147,7 +152,7 @@ function overrideFunctions() {
     } catch(err) {
       alert(err);
     }
-
+  
     onCommandClick.apply(this, arguments);
   }
 
@@ -161,9 +166,9 @@ function overrideFunctions() {
     } catch(err) {
       alert(err);
     }
-
+    
     eonCommandClick.apply(this, arguments);
-  }
+ }
 }
 
 setMenu();
