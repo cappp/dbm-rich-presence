@@ -8,6 +8,7 @@
   *                                                      *
   *======================================================*/
 
+const { Window, Menu, MenuItem, Shell } = nw;
 const { writeFileSync } = require('fs');
 const { resolve, join } = require('path');
 
@@ -24,15 +25,15 @@ let enableCmdNames;
 let currentProject;
 
 function setMenu() {
-  Menu = nw.Window.get().menu;
+  Menu = Window.get().menu;
 
-  const dbmRichPresenceMenu = new nw.Menu();
-  dbmRichPresenceMenu.append(new nw.MenuItem({
+  const dbmRichPresenceMenu = new Menu();
+  dbmRichPresenceMenu.append(new MenuItem({
     label: 'DBM Rich Presence',
     click: () => jQuery('#dbmRichPresence').modal('show')
   }))
 
-  Menu.append(new nw.MenuItem({
+  Menu.append(new MenuItem({
     label: 'Integrations',
     submenu: dbmRichPresenceMenu
   }));
@@ -46,7 +47,7 @@ function setModal() {
   modal.setAttribute('style', 'padding: 20px; height: 320px; border-radius: 10px; background-color: #36393e; border: 2px solid #000;');
   modal.innerHTML = `
     <h2>DBM Rich Presence - v${rpcVersion}</h2>
-    Created by <b>Cap & General Wrex</b> - <a href="#" onclick="nw.Shell.openExternal('https://github.com/CapOliveiraBr/DBM-Rich-Presence')">Repository</a>
+    Created by <b>Cap & General Wrex</b> - <a href="#" onclick="Shell.openExternal('https://github.com/CapOliveiraBr/DBM-Rich-Presence')">Repository</a>
     <h3>Settings</h3>
     Enable RPC:<br><br>
     <select id="enableRPC" class="round">
