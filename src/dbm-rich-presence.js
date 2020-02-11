@@ -62,6 +62,7 @@ function setModal() {
   }, 1000);
 }
 
+let options;
 function setRichPresence() {
   if (!enableRPC) return;
 
@@ -70,13 +71,16 @@ function setRichPresence() {
   
   const stateVal = `Project: ${require(resolve('settings.json'))['current-project'].replace(/\\/g, '/').split('/').slice(-1).toString()}`;
 
+  options = {
+    state: stateVal,
+    largeImageKey: 'dbm',
+    largeImageText: 'DBM Rich Presence v1.0.1',
+    startTimestamp: Date.now()
+  };
+
+
   function setActivity() {
-    rpc.setActivity({
-      state: stateVal,
-      largeImageKey: 'dbm',
-      largeImageText: 'DBM Rich Presence v1.0.0',
-      startTimestamp: Date.now()
-    });
+    rpc.setActivity(options);
   }
 
   rpc.on('ready', () => {
@@ -84,7 +88,7 @@ function setRichPresence() {
     setTimeout(() => setActivity(), 1000);
   });
 
-  rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on set your RPC.'));
+  rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on setting Rich Presence Config!'));
 }
 
 function stopRichPresence() {
@@ -94,6 +98,17 @@ function stopRichPresence() {
     rpc.destroy();
     rpc = null;
   });
+}
+
+ const shiftTabs = DBM.shiftTabs;
+ DBM.shiftTabs = function(event, section, index) {               
+	try {
+		options.details = 'Editing: ' + section;
+		rpc.setActivity(options);
+	} catch (err) {
+		alert(err);        
+	}
+	shiftTabs.apply(this, arguments);
 }
 
 setMenu();
