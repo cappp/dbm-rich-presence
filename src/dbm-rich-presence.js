@@ -16,13 +16,13 @@ let modal;
 let menu;
 
 let rpc;
-let options;
+let rpcOptions;
 
 const settings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
 
-let currentProject;
+let currentProject = require(resolve('settings.json'))['current-project'];
 
 function setMenu() {
   menu = Window.get().menu;
@@ -87,7 +87,7 @@ function setRichPresence() {
   currentProject = require(resolve('settings.json'))['current-project'];
   const stateVal = `Project: ${currentProject.replace(/\\/g, '/').split('/').slice(-1).toString()}`;
 
-  options = {
+  rpcOptions = {
     details: 'Editing Commands',
     state: stateVal,
     largeImageKey: 'dbm',
@@ -97,8 +97,8 @@ function setRichPresence() {
 
   rpc.on('ready', () => {
     try {
-      rpc.setActivity(options);
-      setTimeout(() => rpc.setActivity(options), 1000);
+      rpc.setActivity(rpcOptions);
+      setTimeout(() => rpc.setActivity(rpcOptions), 1000);
     } catch(err) {
       alert(err);
     }
@@ -130,11 +130,11 @@ function overrideFunctions() {
   let section = 'Commands';
 
   const shiftTabs = DBM.shiftTabs;
-  DBM.shiftTabs = (event, sect, index) => { 
+  DBM.shiftTabs = (event, sect, index) => {
     try {
       section = sect; 
-      options.details = cache[sect];
-      rpc.setActivity(options);     
+      rpcOptions.details = cache[sect];
+      rpc.setActivity(rpcOptions);     
     } catch(err) {
       alert(err);
     }
@@ -147,8 +147,8 @@ function overrideFunctions() {
     try {
       const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}`; 
       cache['Commands'] = details;
-      options.details = details;
-      rpc.setActivity(options);
+      rpcOptions.details = details;
+      rpc.setActivity(rpcOptions);
     } catch(err) {
       alert(err);
     }
@@ -161,14 +161,14 @@ function overrideFunctions() {
     try {     
       const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}`; 
       cache['Events'] = details;
-      options.details = details;
-      rpc.setActivity(options);
+      rpcOptions.details = details;
+      rpc.setActivity(rpcOptions);
     } catch(err) {
       alert(err);
     }
     
     eonCommandClick.apply(this, arguments);
- }
+  }
 }
 
 setMenu();
