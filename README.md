@@ -46,7 +46,7 @@ Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/D
 When you install the RPC, a new menu tab is added to DBM, called "**Integrations**", inside it you can go to **DBM Rich Presence** where you can see some settings.
 
 ![](https://i.imgur.com/Mz1xPcz.png)
-![](https://i.imgur.com/jVgGIJ0.png)
+![](https://i.imgur.com/OUuFjjy.png)
 
 ---
 
