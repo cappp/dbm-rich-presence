@@ -122,8 +122,8 @@ function getName(type, index) {
 
 function overrideFunctions() {
   const cache = {
-    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : 'Editing Commands', 
-    Events: enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events', 
+    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)}` : 'Editing Commands', 
+    Events: enableCmdNames ? `Event ${getName('Events', 1)}` : 'Editing Events', 
     Settings: 'Editing Bot Settings'
   };
 
