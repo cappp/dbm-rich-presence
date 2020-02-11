@@ -18,7 +18,7 @@ let menu;
 let rpc;
 let rpcOptions;
 
-const settings = require(resolve('rpcSettings.json'));
+const rpcSettings = require(resolve('rpcSettings.json'));
 let enableRPC;
 let enableCmdNames;
 
@@ -63,8 +63,8 @@ function setModal() {
 
   document.body.appendChild(modal);
 
-  document.getElementById('enableRPC').value = settings.enableRPC;
-  document.getElementById('enableCmdNames').value = settings.enableCmdNames;
+  document.getElementById('enableRPC').value = rpcSettings.enableRPC;
+  document.getElementById('enableCmdNames').value = rpcSettings.enableCmdNames;
 
   setInterval(() => {
     enableRPC = document.getElementById('enableRPC').value === 'true' ? true : false;
@@ -104,7 +104,7 @@ function setRichPresence() {
     }
   });
 
-  rpc.login({ clientId: '675588061140353025' }).catch(() => alert('Some error ocurred on setting the Rich Presence!'));
+  rpc.login({ clientId: '675588061140353025' }).catch(err => alert('Some error ocurred on setting the Rich Presence!\n\nError: ' + err));
 }
 
 function stopRichPresence() {
