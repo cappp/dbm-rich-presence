@@ -75,7 +75,7 @@ function setModal() {
     if (enableRPC) {
       if (!rpc) setRichPresence();
     } else stopRichPresence();
-  }, 1000);
+  });
 }
 
 function setRichPresence() {
