@@ -120,13 +120,13 @@ function getName(type, index) {
 function overrideFunctions() {
   
   const cache = {
-    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : `Editing Commands` , 
-    Events:   enableCmdNames ? `Event ${getName('Events', 1)} ` : `Editing Events` , 
+    Commands: enableCmdNames ? `Command: ${getName('Commands', 1)} ` : 'Editing Commands' , 
+    Events:   enableCmdNames ? `Event ${getName('Events', 1)} ` : 'Editing Events' , 
     Settings: 'Editing Bot Settings'
   };
   
   // when the tab is changed
-  let section = "Commands";
+  let section = 'Commands';
   const shiftTabs = DBM.shiftTabs;
   DBM.shiftTabs = (event, sect, index) => { 
     try {
@@ -136,6 +136,7 @@ function overrideFunctions() {
     }catch (err) {
       alert(err);
     }
+
     shiftTabs.apply(this, arguments);
   } 
 
@@ -143,13 +144,14 @@ function overrideFunctions() {
   const onCommandClick = DBM.onCommandClick;
   DBM.onCommandClick = (index) => {  
     try {
-        const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)} ` : `Editing ${section}` 
+        const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
         cache['Commands'] = details;
         options.details = details;
         rpc.setActivity(options);
     } catch (err) {
       alert(err);
     }
+
     onCommandClick.apply(this, arguments);
   }
 
@@ -157,13 +159,14 @@ function overrideFunctions() {
   const eonCommandClick = DBM.eonCommandClick;
   DBM.eonCommandClick = (index) => {  
     try {     
-      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)} ` : `Editing ${section}` 
+      const details = enableCmdNames ? `${section.slice(0, -1)}: ${getName(section, index)}` : `Editing ${section}` 
       cache['Events'] = details;
       options.details = details;
       rpc.setActivity(options);
     } catch (err) {
         alert(err);
     }
+
     eonCommandClick.apply(this, arguments);
   }
 }
