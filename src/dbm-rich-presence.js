@@ -111,7 +111,7 @@ function stopRichPresence() {
 }
 
 function getName(type, index) { 
-  return require(join(currentProject, 'data', `${type.toLowerCase()}.json`))[index].name
+  return require(join(currentProject, 'data', `${type.toLowerCase()}.json`))[index].name;
 }
 
 function overrideFunctions() {
