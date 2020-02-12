@@ -17,7 +17,7 @@ let menu;
 
 let rpc;
 let rpcOptions = {
-  details: 'Not Working',
+  details: 'Idling',
   state: 'No Project Opened',
   largeImageKey: 'dbm',
   largeImageText: `DBM Rich Presence v${rpcVersion}`,
@@ -149,7 +149,7 @@ function overrideFunctions() {
   DBM.onCommandClick = function(index) {
     try {
       const type = section.slice(0, -1);
-      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'Not Working'}` : `Editing ${section}`;
+      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selection'}` : `Editing ${section}`;
 
       cache['Commands'] = details;
       rpcOptions.details = details;
@@ -166,7 +166,7 @@ function overrideFunctions() {
   DBM.eonCommandClick = function(index) {
     try {
       const type = section.slice(0, -1);
-      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'Not Working'}` : `Editing ${section}`;
+      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selection'}` : `Editing ${section}`;
 
       cache['Events'] = details;
       rpcOptions.details = details;
