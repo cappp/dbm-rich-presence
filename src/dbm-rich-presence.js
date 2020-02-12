@@ -149,7 +149,7 @@ function overrideFunctions() {
   DBM.onCommandClick = function(index) {
     try {
       const type = section.slice(0, -1);
-      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selection'}` : `Editing ${section}`;
+      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selected'}` : `Editing ${section}`;
 
       cache['Commands'] = details;
       rpcOptions.details = details;
@@ -166,7 +166,7 @@ function overrideFunctions() {
   DBM.eonCommandClick = function(index) {
     try {
       const type = section.slice(0, -1);
-      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selection'}` : `Editing ${section}`;
+      const details = enableCmdNames ? `${index ? `${type}: ` : ' '}${index ? (getName(section, index) || `New ${type}`) : 'None Selected'}` : `Editing ${section}`;
 
       cache['Events'] = details;
       rpcOptions.details = details;
