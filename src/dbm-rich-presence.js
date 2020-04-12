@@ -60,7 +60,7 @@ function setModal() {
    </select><br><br>
    Show Command/Event Names:<br><br>
    <select id="enableCmdNames" class="round">
-     <option value="true" >True</option>
+     <option value="true">True</option>
      <option value="false">False</option>
    </select>
  `;
