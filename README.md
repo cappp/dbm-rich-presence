@@ -2,9 +2,7 @@
 
 📖 A Rich Presence of Discord that shows your DBM information.
 
-> **Note:** This is just a first version, soon it will be super cool!
-
-![](https://i.imgur.com/4IPNq8U.png)
+![](https://i.imgur.com/KSAR1JE.png)
 
 ![](https://img.shields.io/github/v/release/CapOliveiraBr/DBM-Rich-Presence?style=for-the-badge) ![](https://img.shields.io/github/license/CapOliveiraBr/DBM-Rich-Presence?logo=https%3A%2F%2Fimg.shields.io%2Fgithub%2Flicense%2FCapOliveiraBr%2FDBM-Rich-Presence%3Fstyle%3Dsocial&style=for-the-badge) 
 
@@ -46,7 +44,7 @@ Download the latest release of the RPC [here](https://github.com/CapOliveiraBr/D
 When you install the RPC, a new menu tab is added to DBM, called "**Integrations**", inside it you can go to **DBM Rich Presence** where you can see some settings.
 
 ![](https://i.imgur.com/Mz1xPcz.png)
-![](https://i.imgur.com/OUuFjjy.png)
+![](https://i.imgur.com/926LZKv.png)
 
 ---
 
